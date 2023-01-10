@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Sidebar from './Sidebar'
-import Topbar from './Topbar'
+import Sidebar from '../shared/Sidebar'
+import Topbar from '../shared/Topbar'
 
 function Portal() {
   return (

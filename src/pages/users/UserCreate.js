@@ -1,8 +1,12 @@
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 function UserCreate() 
 {
+    const [isLoading,setLoading]=useState(false)
+    const navigate=useNavigate()
     const myFormik= useFormik(
         {
         initialValues :{
@@ -39,9 +43,20 @@ function UserCreate()
                 }
                 return errors;
             },
-        onSubmit: (values)=>{
-            console.log(values);
-        },
+        onSubmit: async (values)=>{
+            try{
+            setLoading(true)
+            const user =await axios.post(
+                "https://63af9edacb0f90e51476dc94.mockapi.io/users",
+                values
+            );
+            navigate("portal/user-list")
+            }catch (error) {
+                console.log(error);
+                alert("Validation Error")
+                setLoading(false)
+            }
+        },  
     }) ;
   return (
     <div className="container">
@@ -118,7 +133,7 @@ function UserCreate()
                 <span style={{color:"red"}}>{myFormik.errors.city}</span>
             </div>
             <div className="clo-lg-3 mt-3">
-                <input type={"submit"} value="Create"  className="btn btn-primary"/>
+                <input  disabled={isLoading} type={"submit"} value={isLoading ? "Loading..." : "Create"}  className="btn btn-primary"/>
             </div>
         </div>
         </form>

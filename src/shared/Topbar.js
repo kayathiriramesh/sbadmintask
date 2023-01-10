@@ -1,6 +1,10 @@
-import React  from 'react'
+import React, { useContext }  from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from '../context/UserContext';
+
+
 function Topbar () {
+    const userData = useContext(UserContext)
   return (
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -171,7 +175,7 @@ function Topbar () {
         <li class="nav-item dropdown no-arrow">
             <Link class="nav-link dropdown-toggle" to="/" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{userData.user.name}</span>
                 <img class="img-profile rounded-circle"
                     src="img/undraw_profile.svg"/>
             </Link>

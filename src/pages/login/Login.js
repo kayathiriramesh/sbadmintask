@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import UserContext from '../../context/UserContext'
 
 function Login() {
+    const userData = useContext(UserContext)
   return (
     /*  login.html page la irukkura container ah copy panni potanum*/
     <div class="container">
@@ -23,7 +25,10 @@ function Login() {
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address..."/>
+                                                placeholder="Enter Email Address..."
+                                                onChange={(e)=>{
+                                                    userData.setUser(e.target.value)}}
+                                            />
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"

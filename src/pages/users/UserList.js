@@ -1,8 +1,53 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import { useEffect, useState } from 'react';
+import {Link,useSearchParams} from 'react-router-dom';
+import axios from "axios";
+import { useContext } from 'react';
+import UserContext from '../../context/UserContext';
+
 
 function UserList() {
-    const data=[
+    const [userList, setUserlist]= useState([]);
+    const [isLoading,setLoading]=useState(true);
+    const userData= useContext(UserContext)
+
+    useEffect(()=>{
+        //on load
+        getUsers();
+    },[]);
+
+    let getUsers= async () =>{
+        try{
+            const users= await axios.get("https://63af9edacb0f90e51476dc94.mockapi.io/users");//mockapi la create panna api 
+            setUserlist(users.data);
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(()=>{
+        //on finished
+        return() =>{
+            console.log("Destroy.....");
+        }
+    },[]);
+
+    let handleDelete = async(id) => {
+         try{
+                const confirdata= window.confirm("Are you sure do you want to delete this data?")
+                if(confirdata){
+                    await axios.delete(
+                    `https://63af9edacb0f90e51476dc94.mockapi.io/users${id}`  
+                    );
+                    getUsers();
+                }
+            }catch(error){
+                alert("Somthing went wrong");
+            }
+         };
+    
+    /* const data=[
         {
             id:1,
             username:"user 1",
@@ -26,7 +71,7 @@ function UserList() {
             state:"ncjdk",
             city:"mncdmn"
         },
-    ]
+    ] */
   return (
     <>
       <h1 class="h3 mb-2 text-gray-800">Tables</h1>
@@ -35,7 +80,7 @@ function UserList() {
                             href="https://datatables.net">official DataTables documentation</a>.</p>                  
 
 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-          <h1 className="h3 mb-0 text-gray-800">UserList</h1>
+          <h1 className="h3 mb-0 text-gray-800">UserList -{userData.user.name}</h1>
           <Link to="/portal/user-create" 
             className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i className="fas fa-download fa-sm text-white-50"></i> Create Users
@@ -47,8 +92,10 @@ function UserList() {
                             <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            {
+                                isLoading ? (<img src="https://iconscout.com/lottie/loading-dots-button-5759321"/>) :
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" >
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -71,34 +118,36 @@ function UserList() {
                                             <th>Action</th>                                            
                                     </tr>
                                             
-                                    </tfoot>
+                                    </tfoot> 
                                     <tbody>
-                                        { data.map((user) =>
-                                            <tr>
+                                    {   
+                                            userList.map((user,index) =>
+                                        <tr key={index}>
                                             <td>{user.id}</td>
                                             <td>{user.username}</td>
                                             <td>{user.email}</td>
                                             <td>{user.country}</td>
                                             <td>{user.state}</td>
-                                            <td>{user.city}</td>
+                                             <td>{user.city}</td>
                                             
                                             <th>
                                                 <Link to ={`/portal/user-view/${user.id}`}className="btn btn-primary btn-sm mr-1">View</Link>
-                                                <button className="btn btn-primary btn-sm mr-1">Edit</button>
-                                                <button className="btn btn-primary btn-sm mr-1">Delete</button>
+                                                <Link to ={`/portal/user-edit/${user.id}`} className="btn btn-primary btn-sm mr-1">Edit</Link>
+                                                <button onClick={() => handleDelete(user.id)} className="btn btn-primary btn-sm mr-1">Delete</button>
                                             </th>
-                                        </tr>
+                                        </tr>)
 
-                                        )}
+                                    } 
                                                                                 
                                     </tbody>
                                 </table>
-                            </div>
+                                </div>
+                            }
+                            
                         </div>
                     </div>
 
     </>
-  )
-}
+)}
 
 export default UserList
