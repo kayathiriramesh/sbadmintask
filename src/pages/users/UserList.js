@@ -38,7 +38,7 @@ function UserList() {
                 const confirdata= window.confirm("Are you sure do you want to delete this data?")
                 if(confirdata){
                     await axios.delete(
-                    `https://63af9edacb0f90e51476dc94.mockapi.io/users${id}`  
+                    `https://63af9edacb0f90e51476dc94.mockapi.io/users/${id}`  
                     );
                     getUsers();
                 }
@@ -93,7 +93,7 @@ function UserList() {
                         </div>
                         <div class="card-body">
                             {
-                                isLoading ? (<img src="https://iconscout.com/lottie/loading-dots-button-5759321"/>) :
+                                isLoading ? (<img src="https://media.giphy.com/media/qwx29dwzS5TqkuPmRo/giphy.gif"/>) :
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" >
                                     <thead>
@@ -128,12 +128,12 @@ function UserList() {
                                             <td>{user.email}</td>
                                             <td>{user.country}</td>
                                             <td>{user.state}</td>
-                                             <td>{user.city}</td>
+                                            <td>{user.city}</td>
                                             
                                             <th>
-                                                <Link to ={`/portal/user-view/${user.id}`}className="btn btn-primary btn-sm mr-1">View</Link>
-                                                <Link to ={`/portal/user-edit/${user.id}`} className="btn btn-primary btn-sm mr-1">Edit</Link>
-                                                <button onClick={() => handleDelete(user.id)} className="btn btn-primary btn-sm mr-1">Delete</button>
+                                                <Link to ={`/portal/user-view/${user.id}`}className="btn btn-info btn-sm mr-1 mb-1">View</Link>
+                                                <Link to ={`/portal/user-edit/${user.id}`} className="btn btn-primary btn-sm mr-1 mb-1">Edit</Link>
+                                                <button onClick={() => handleDelete(user.id)} className="btn btn-danger btn-sm mr-1 mb-1">Delete</button>
                                             </th>
                                         </tr>)
 

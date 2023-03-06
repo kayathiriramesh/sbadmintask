@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function userEdit() {
+function UserEdit() {
 
     const [isLoading,setLoading]=useState(false)
     const params = useParams();
@@ -58,8 +58,8 @@ function userEdit() {
         onSubmit: async (values)=>{
             try{
             setLoading(true)   
-            const user =await axios.post(
-                `https://63af9edacb0f90e51476dc94.mockapi.io/users${params.userid}`,
+            const user =await axios.put(
+                `https://63af9edacb0f90e51476dc94.mockapi.io/users/${params.userid}`,
                 values
             );
             //alert("Update Done")
@@ -154,4 +154,4 @@ function userEdit() {
   )
 }
 
-export default userEdit
+export default UserEdit

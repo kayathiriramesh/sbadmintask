@@ -17,19 +17,19 @@ function App() {
   return (
     /* react-router-dom package install  */
     <BrowserRouter>
-    <UserProvider>
-    <Routes>
-        <Route path="/" element={<Login/>} />
-        <Route path="/portal" element={<Portal/>}>
-          <Route path="dashboard" element={<Dashboard/>} />
-          <Route path="user-list" element={<UserList/>} />
-          <Route path="user-create" element={<UserCreate/>} />
-          <Route path="user-view/:userid" element={<UserView/>} />
-          {/*  : means dynamic variable*/}
-          <Route path="user-edit/:userid" element={<UserEdit/>} />
-        </Route>
-      </Routes>
-    </UserProvider>
+      <UserProvider>
+        <Routes>
+          <Route path="/" element={<Login/>} />
+          <Route path="/portal" element={<Portal/>}>
+            <Route path="dashboard" element={<Dashboard/>} />
+            <Route path="user-list" element={<UserList/>} />
+            <Route path="user-create" element={<UserCreate/>} />
+            <Route path="user-view/:userid" element={<UserView/>} />
+            {/*  : means dynamic variable*/}
+            <Route path="user-edit/:userid" element={<UserEdit/>} />
+          </Route>
+        </Routes>
+      </UserProvider>
     </BrowserRouter>
   );
 }

@@ -27,7 +27,7 @@ function Login() {
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address..."
                                                 onChange={(e)=>{
-                                                    userData.setUser(e.target.value)}}
+                                                    userData.setUser({name:e.target.value})}}
                                             />
                                         </div>
                                         <div class="form-group">

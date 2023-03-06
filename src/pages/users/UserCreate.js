@@ -50,7 +50,7 @@ function UserCreate()
                 "https://63af9edacb0f90e51476dc94.mockapi.io/users",
                 values
             );
-            navigate("portal/user-list")
+            navigate("/portal/user-list")
             }catch (error) {
                 console.log(error);
                 alert("Validation Error")
@@ -69,7 +69,7 @@ function UserCreate()
                 value={myFormik.values.username} 
                 type={"text"}
                 className={`form-control ${
-                    myFormik.values.username ? "is-valid" : "is-invalid"
+                    myFormik.errors.username ? "is-invalid" : "is-valid"
                 }`} />
                 <span style={{color:"red"}}>{myFormik.errors.username}</span>
             </div>
@@ -78,11 +78,12 @@ function UserCreate()
                { /* name="username" means it connect to initialValues username="" */ }
                 <input name="email" 
                 value={myFormik.values.email}  
+                onChange={myFormik.handleChange}
                 type={"text"}
                 className={`form-control ${
-                    myFormik.values.email ? "is-valid" : "is-invalid"
+                    myFormik.errors.email ? "is-invalid" : "is-valid"
                 }`}
-                 onChange={myFormik.handleChange}
+                
                  />
                  <span style={{color:"red"}}>{myFormik.errors.email}</span>
             </div>
@@ -92,7 +93,7 @@ function UserCreate()
                 onChange={myFormik.handleChange}  
                 value={myFormik.values.country} 
                 className={`form-control ${
-                    myFormik.values.country ? "is-valid" : "is-invalid"
+                    myFormik.errors.country ? "is-invalid" : "is-valid"
                 }`}>
                     <option value={""}>---Select---</option>
                     <option value={"IN"}>India</option>
@@ -106,7 +107,7 @@ function UserCreate()
                 onChange={myFormik.handleChange}
                 value={myFormik.values.state} 
                 className={`form-control ${
-                    myFormik.values.city ? "is-valid" : "is-invalid"
+                    myFormik.errors.state ? "is-invalid" : "is-valid"
                 }`}>
                     <option value={""}>---Select---</option>
                     <option value={"TN"}>TamilNadu</option>
@@ -122,7 +123,7 @@ function UserCreate()
                 value={myFormik.values.city} 
                 onChange={myFormik.handleChange}
                 className={`form-control ${
-                    myFormik.values.city ? "is-valid" : "is-invalid"
+                    myFormik.errors.city ? "is-invalid" : "is-valid"
                 }`}>
                     <option value={""}>---Select---</option>
                     <option value={"CH"}>Chennai</option>
